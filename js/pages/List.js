@@ -99,30 +99,30 @@ export default {
                         </ol>
                     </template>
                     <h3>Submission Requirements</h3>
-                    <p>
-                        Achieved the record without using hacks (however, FPS bypass is allowed, up to 360fps)
-                    </p>
-                    <p>
-                        Achieved the record on the level that is listed on the site - please check the level ID before you submit a record
-                    </p>
-                    <p>
-                        Have either source audio or clicks/taps in the video. Edited audio only does not count
-                    </p>
-                    <p>
-                        The recording must have a previous attempt and entire death animation shown before the completion, unless the completion is on the first attempt. Everyplay records are exempt from this
-                    </p>
-                    <p>
-                        The recording must also show the player hit the endwall, or the completion will be invalidated.
-                    </p>
-                    <p>
-                        Do not use secret routes or bug routes
-                    </p>
-                    <p>
-                        Do not use easy modes, only a record of the unmodified level qualifies
-                    </p>
-                    <p>
-                        Once a level falls onto the Legacy List, we accept records for it for 24 hours after it falls off, then afterwards we never accept records for said level
-                    </p>
+                    <p>Achieved the record without using hacks (FPS bypass is allowed up to 480fps if not on a vanilla client, if on vanilla client then FPS rules may not apply)</p>
+
+                    <p>Cheat indicator is required if you have Geode installed.</p>
+
+                    <p>Achieved the record on the level that is listed on the site, please check the level ID before you submit a record.</p>
+
+                    <p>Have either source audio or clicks/taps in the video (edited audio does not count like clickbots or post edit clicks)</p>
+
+                    <p>The recording must show a previous attempt and the entire death animation before the completion, unless the completion is on the first attempt.</p>
+
+                    <p>The recording must also show the player hit the endwall, or the completion will be invalidated.</p>
+
+                    <p>Do not use secret routes or bug routes.</p>
+
+                    <p>Do not use nerfed or modified versions of the levels, only a record of the unmodified or allowed version qualifies.</p>
+
+                    <p>No level will be accepted if found easier than the current easiest QCL level unless it had be placed above the easiest then later lowered.</p>
+
+                    <p>Once a level falls onto the Legacy List, we accept records for it for 24 hours after it falls off; afterwards we never accept records for said level.</p>
+
+                    <p>CPS will be limited to be 10 cps or under for verifications with no exceptions.</p>
+
+
+                    <p>All these rules may be subject to change in the future, levels/completions which previously followed rules before change that may violate newer rules will be exempted.</p>
                 </div>
             </div>
         </main>

@@ -5,23 +5,35 @@ export function getYoutubeIdFromUrl(url) {
     )?.[1] ?? '';
 }
 
-// Simple Medal.tv clip ID extraction (supports /clip/, /clips/, games/<game>/clips/)
 export function getMedalIdFromUrl(url) {
     return url.match(/medal\.tv\/(?:clip|clips|games\/[^\/]+\/clips)\/([^\/?#]+)/)?.[1] ?? '';
 }
 
-// Reliable Twitch clip ID extraction (supports clips.twitch.tv, twitch.tv/.../clip/..., twitch.tv/clip/...)
 export function getTwitchClipIdFromUrl(url) {
-    // 1) clips.twitch.tv/<slug>
     let match = url.match(/clips\.twitch\.tv\/([^\/?#]+)/);
     if (match) return match[1];
 
-    // 2) twitch.tv/<anything>/clip/<slug>
     match = url.match(/twitch\.tv\/[^\/]+\/clip\/([^\/?#]+)/);
     if (match) return match[1];
 
-    // 3) twitch.tv/clip/<slug>
     match = url.match(/twitch\.tv\/clip\/([^\/?#]+)/);
+    if (match) return match[1];
+
+    return '';
+}
+
+export function getGoogleDriveIdFromUrl(url) {
+    if (!url) return '';
+    // /file/d/ID/... or /file/d/ID
+    let match = url.match(/drive\.google\.com\/file\/d\/([^\/?#]+)/);
+    if (match) return match[1];
+
+    // open?id=ID
+    match = url.match(/drive\.google\.com\/open\?id=([^&\/#]+)/);
+    if (match) return match[1];
+
+    // share link that sometimes includes uc?id=ID
+    match = url.match(/uc\?id=([^&\/#]+)/);
     if (match) return match[1];
 
     return '';
@@ -32,6 +44,7 @@ export function getVideoPlatform(url) {
     if (url && /youtu\.?be/.test(url)) return "youtube";
     if (url && /medal\.tv/.test(url)) return "medal";
     if (url && (/twitch\.tv/.test(url) || /clips\.twitch\.tv/.test(url))) return "twitch";
+    if (url && /drive\.google\.com/.test(url)) return "googledrive";
     return "unknown";
 }
 
@@ -42,21 +55,22 @@ export function embed(video) {
         return `https://www.youtube.com/embed/${getYoutubeIdFromUrl(video)}`;
     }
 
-    // Medal: return direct .mp4 (Medal blocks iframe embedding with X-Frame-Options)
     if (platform === "medal") {
         const id = getMedalIdFromUrl(video);
-        // direct CDN .mp4 pattern — use in <video> tag
-        return `https://cdn.medal.tv/clip/${id}/720p.mp4`;
+        return `https://medal.tv/clip/${id}`;
     }
 
-    // Twitch embed iframe format (parent is required). Use runtime hostname for localhost & prod.
     if (platform === "twitch") {
         const id = getTwitchClipIdFromUrl(video);
-        // If code executes server-side and window is undefined, fallback to empty parent
         const parent = (typeof window !== "undefined" && window.location && window.location.hostname)
             ? window.location.hostname
             : "localhost";
         return `https://clips.twitch.tv/embed?clip=${id}&parent=${parent}`;
+    }
+
+    if (platform === "googledrive") {
+        const id = getGoogleDriveIdFromUrl(video);
+        return `https://drive.google.com/file/d/${id}/preview`;
     }
 
     return video;
@@ -68,23 +82,35 @@ export function localize(num) {
 
 // Get thumbnail image depending on platform
 export function getThumbnailFromId(urlOrId) {
-    const platform = getVideoPlatform(urlOrId);
+    if (!urlOrId) return '';
+
+    const input = String(urlOrId).trim();
+    const platform = getVideoPlatform(input);
+
+    const possibleYouTubeId = input.match(/^[A-Za-z0-9_-]{6,}$/);
 
     if (platform === "youtube") {
-        const id = getYoutubeIdFromUrl(urlOrId);
-        return `https://img.youtube.com/vi/${id}/mqdefault.jpg`;
+        const id = getYoutubeIdFromUrl(input) || (possibleYouTubeId && possibleYouTubeId[0]);
+        if (id) return `https://img.youtube.com/vi/${id}/mqdefault.jpg`;
     }
 
-    // Medal thumbnail pattern (may work; if not, fall back to clip page)
+    if (platform === "unknown" && possibleYouTubeId) {
+        return `https://img.youtube.com/vi/${possibleYouTubeId[0]}/mqdefault.jpg`;
+    }
+
     if (platform === "medal") {
-        const id = getMedalIdFromUrl(urlOrId);
-        return `https://cdn.medal.tv/clip/${id}/thumbnail.jpg`;
+        const id = getMedalIdFromUrl(input);
+        if (id) return `https://medal.tv/clip/${id}`;
     }
 
-    // Twitch preview image (note: sometimes Twitch preview URL patterns vary; this is common)
     if (platform === "twitch") {
-        const id = getTwitchClipIdFromUrl(urlOrId);
-        return `https://clips-media-assets2.twitch.tv/${id}-preview-480x272.jpg`;
+        const id = getTwitchClipIdFromUrl(input);
+        if (id) return `https://clips-media-assets2.twitch.tv/${id}-preview-480x272.jpg`;
+    }
+
+    if (platform === "googledrive") {
+        const id = getGoogleDriveIdFromUrl(input);
+        if (id) return `https://drive.google.com/thumbnail?id=${id}&sz=w544-h306`;
     }
 
     return '';
@@ -96,7 +122,6 @@ export function shuffle(array) {
 
     // While there remain elements to shuffle.
     while (currentIndex != 0) {
-        // Pick a remaining element.
         randomIndex = Math.floor(Math.random() * currentIndex);
         currentIndex--;
 

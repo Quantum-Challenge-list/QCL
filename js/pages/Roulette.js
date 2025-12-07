@@ -1,5 +1,5 @@
 import { fetchList } from '../content.js';
-import { getThumbnailFromId, getYoutubeIdFromUrl, shuffle } from '../util.js';
+import { getThumbnailFromId, shuffle } from '../util.js';
 
 import Spinner from '../components/Spinner.js';
 import Btn from '../components/Btn.js';
@@ -12,9 +12,6 @@ export default {
         </main>
         <main v-else class="page-roulette">
             <div class="sidebar">
-                <p class="type-label-md" style="color: #aaa">
-                    Shameless copy of the Extreme Demon Roulette by <a href="https://matcool.github.io/extreme-demon-roulette/" target="_blank">matcool</a>.
-                </p>
                 <form class="options">
                     <div class="check">
                         <input type="checkbox" id="main" value="Main List" v-model="useMainList">
@@ -43,7 +40,7 @@ export default {
                         <!-- Completed Levels -->
                         <div class="level" v-for="(level, i) in levels.slice(0, progression.length)">
                             <a :href="level.video" class="video">
-                                <img :src="getThumbnailFromId(getYoutubeIdFromUrl(level.video))" alt="">
+                                <img :src="getThumbnailFromId(level.video)" alt="">
                             </a>
                             <div class="meta">
                                 <p>#{{ level.rank }}</p>
@@ -54,7 +51,7 @@ export default {
                         <!-- Current Level -->
                         <div class="level" v-if="!hasCompleted">
                             <a :href="currentLevel.video" target="_blank" class="video">
-                                <img :src="getThumbnailFromId(getYoutubeIdFromUrl(currentLevel.video))" alt="">
+                                <img :src="getThumbnailFromId(currentLevel.video)" alt="">
                             </a>
                             <div class="meta">
                                 <p>#{{ currentLevel.rank }}</p>
@@ -78,8 +75,8 @@ export default {
                         <template v-if="givenUp && showRemaining">
                             <div class="level" v-for="(level, i) in levels.slice(progression.length + 1, levels.length - currentPercentage + progression.length)">
                                 <a :href="level.video" target="_blank" class="video">
-                                    <img :src="getThumbnailFromId(getYoutubeIdFromUrl(level.video))" alt="">
-                                </a>
+                                        <img :src="getThumbnailFromId(level.video)" alt="">
+                                    </a>
                                 <div class="meta">
                                     <p>#{{ level.rank }}</p>
                                     <h2>{{ level.name }}</h2>
@@ -156,7 +153,6 @@ export default {
     methods: {
         shuffle,
         getThumbnailFromId,
-        getYoutubeIdFromUrl,
         async onStart() {
             if (this.isActive) {
                 this.showToast('Give up before starting a new roulette.');

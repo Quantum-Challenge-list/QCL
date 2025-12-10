@@ -1,13 +1,13 @@
 [
     {
         "role": "owner",
-        "name": "Quantum",
-        "link": "https://www.youtube.com/@QuantumGD92"
+        "name": "Owner",
+        "link": "https://www.youtube.com/@Prometheus_Alt"
     },
     {
-        "role": "owner",
-        "name": "Anticroom",
-        "link": "https://www.youtube.com/@Anticroom.1"
+        "role": "Admin",
+        "name": "Admin",
+        "link": "https://www.youtube.com/@Prometheus_Alt"
     },
     {
         "role": "helper",

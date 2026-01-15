@@ -1,11 +1,24 @@
 {
-    "id": 125642305,
-    "name": "Unnamed 8",
-    "author": "SSSAAANNNEEEEE",
-    "creators": [],
-    "verifier": "SSSAAANNNEEEEE",
-    "verification": "https://youtu.be/V-5MU-X2hGY",
-    "percentToQualify": 100,
-    "password": "Free Copyable",
-    "records": []
+  "id": 125642305,
+  "name": "Unnamed 7",
+  "author": "sanethegreat",
+  "records": [
+    {
+      "hz": 90,
+      "link": "https://www.youtube.com/watch?v=v1-SaAAy1NQ",
+      "user": "Quantum",
+      "percent": 100
+    },
+    {
+      "hz": 240,
+      "link": "https://youtu.be/5TMnkaSTQMc?si=7lbf3OssbqSik0oS",
+      "user": "shafikdabest",
+      "percent": 100
+    }
+  ],
+  "creators": [],
+  "password": "free Copyable",
+  "verifier": "SSSAAANNNEEEEE",
+  "verification": "https://youtu.be/V-5MU-X2hGY",
+  "percentToQualify": 100
 }

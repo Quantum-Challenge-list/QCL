@@ -1,11 +1,18 @@
 {
-    "id": 126746297,
-    "name": "ufo challenge",
-    "author": "SSSAAANNNEEEEE",
-    "creators": [],
-    "verifier": "SSSAAANNNEEEEE",
-    "verification": "https://youtu.be/MT3hs0V-fSU",
-    "percentToQualify": 100,
-    "password": "Free Copyable",
-    "records": []
+  "id": 126746297,
+  "name": "ufo challenge",
+  "author": "SSSAAANNNEEEEE",
+  "records": [
+    {
+      "hz": 240,
+      "link": "https://youtu.be/3X6aSWirxRI?si=xI_DvXguG13QlpIm",
+      "user": "shafikdabest",
+      "percent": 100
+    }
+  ],
+  "creators": [],
+  "password": "free Copyable",
+  "verifier": "SSSAAANNNEEEEE",
+  "verification": "https://youtu.be/MT3hs0V-fSU",
+  "percentToQualify": 100
 }
